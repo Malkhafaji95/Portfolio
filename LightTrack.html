@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>PID Controlled Light-Tracker</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Main</a>
+					</header>
+
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+
+									<h3>PID Controlled Light-Tracker<br />
+									 </h3>
+									<p> The following project was completed as part of the Advanced Mechatronics course <br />
+									Special thanks to my teammates Zahra Fahimnia, Khush Patel, Hasnain Raza, Haniya Saleh, and Thiviyan Sivakumar.
+									</p>
+									
+								</header>
+								<div class="image main"><img src="Light-tracker images\LT.PNG" class="center" style="width:500px;height:500px"/></div>
+								
+								<p>Solar energy is becoming an increasingly popular source of energy due to its sustainability, 
+										renewable, and eco-friendly. Photovoltaic panels (PV panels) are devices used to convert the solar 
+										energy to electrical energy. They are versatile, as they can be mounted on different surfaces, such as 
+										ground, rooftop, or walls. The mount can be fixed, or it may utilize a solar tracker to follow the 
+										trajectory of the sun. With the demand of solar energy on a rise as an alternative to meet the increasing 
+										electricity demands, solar trackers are becoming a popular method to harvest solar energy more efficiently</p> 
+									<p></p>
+									<p>The solar tracking prototype developed is a dual-axis tracker, meaning that its movement is based on the 
+										position of the solar arrays and is by rotation about two axes: the vertical and horizontal axis. The 
+										development of the prototype made use of an Arduino, two servo motors, and Light Depending Resistors (LDR) 
+										which is used to detect the sun light and are a cost-effective option to utilize for this project. Servo 
+										motors are used to move the tracker since they can sustain high torque and can be controlled within 
+										precise angles. The Arduino is used to program the functionality of the solar tracker and two independent 
+										PID controller loops (one for each axis) are used to automate this process.</p>
+
+									<p>Solar trackers are used to orient PV panels toward the sun. To make solar trackers more efficient, 
+										it is best to design them such that they absorb maximum amount of sunlight as possible. This can be done 
+										by ensuring that the solar tracker maintains a perpendicular profile to the rays and has a relatively 
+										quick response time. Single-axis solar trackers are widely used; however, they capture minimum energy 
+										since the tracking is limited to rotation about the vertical axis and the tracker can only span a 2D plane. 
+										Thus, dual-axis tracking is used in this experiment to get maximum exposure to sun rays. This means the 
+										movement of the tracker is rotation about the vertical and horizontal planes and can span 3D space </p>
+
+
+								<h3> Implementation Details</h3>
+
+								<h4>PID Controller Design</h4>
+
+									<p>To implement the solar tracker, two PID controllers were used to calculate the appropriate servo motor 
+										 angles based on feedback sensor data. <br/>
+											From the block diagram shown below, there are two independent PID control loops. One for the bottom 
+											servo motor (which is responsible for correcting the error in y-axis) and the top servo motor 
+											(which is responsible for correcting the error in x-axis).</p>
+									<a  class="image fit"></a><img src="Light-tracker images\Block diagrams.png" alt="" class="center" style="width:550px;height:450px;"></a>
+
+									<p></p>
+									<p> Even though the solar tracker robot spans 3D space (which is traditionally controlled using 
+											inverse-kinematics), we can simplify the control design by designating a body-attached coordinate 
+											frame on the end-effector of the robot. This is shown in figure below along with the LDR (Light dependant resistor) sensor 
+											positioning. </p>
+
+											<a  class="image fit"></a><img src="Light-tracker images\LDR map.png" alt="" class="center" style="width:475px;height:400px;"></a>
+									<P>The LDR sensors act as a feedback to locate the (x, y) coordinates of where the light source is. Which LDR has the highest 
+										light reading determines which direction and the actual value of the LDR reading gives insight into the magnitude of how far away. 
+										This direction and magnitude in conjunction are used to calculate the (x, y) coordinates of the light source </P>
+
+										<h4>Code Implementation</h4>
+									<P>The Arduino code developed for the PID Solar Tracker was designed to continually calculate where the end effector of the solar tracker 
+										needs to move and by how much to center itself at the greatest concentration of light. </P>
+									<P>The first part of the code focused on declaring and initializing the variables needed throughout the code. 
+										These variables were either global variables that were needed in several parts of the code or general 
+										constant declarations for cleaner and easier to debug software. This included the minimum and maximum 
+										angles of the two servo motors, which were initialized at 0 and 180, respectively. The analog pins for 
+										the six input LDR sensors (one for every 60-degree interval to span the entire circle of the end-effector) 
+										were then initialized, as shown below</P>
+
+									<a  class="image fit"></a><img src="Light-tracker images\code1.png" alt=""  style="width:35%;"></a>
+
+									<P></P>
+									<p>The second part of the Arduino code needed to get the light tracker functional was to initialize PID control
+										 parameters such as error values and the necessary gains. There are two motors and two degrees of freedom 
+										 for this project, and thus two sets of controller variables were created; one for each in the vertical 
+										 and horizontal directions, as shown below</p>
+								
+										 <a  class="image fit"></a><img src="Light-tracker images\code2.png" alt="" style="width:45%;"></a>
+
+									<p></p>
+									<P>After declaring the necessary variables, the actuators (i.e. servo motors) and input sensors (i.e. LDRs) 
+										are setup. This includes setting the pinMode to be input for the LDR pins and assigning the PWM control pins 
+										for the servo motors to the servoY and servoX objects.</P>
+
+										<a  class="image fit"></a><img src="Light-tracker images\code3.png" alt="" style="width:45%;"></a>
+
+										<h4>Robot Homing</h4>
+									<P>For our project implementation, part of the setup procedure is to home the robot. This is necessary as
+										 for consistency and operation of the robot, the end-effect should start being positioned upwards. Since
+											the end-effector is designed in segments with barriers that cast a shadow on the LDRs that are facing 
+											away from the light source, if the robot end-effector is pointed downwards, it will be difficult for 
+											it to detect any light (as most of the sensors will be in the shadow) and will take a long time to 
+											figure out where the light source is. Having the robot start in this position also helps performs 
+											other necessary start up tasks such as calculating the tolerance value. </P>
+
+											<a  class="image fit"></a><img src="Light-tracker images\code4.png" alt="" style="width:25%;"></a>
+
+									<P></P>
+									<P>From the code snippet for the HomeRobot() function above, it can be noted that the robot moves 
+										to two positions as part of its homing procedure. The first position corresponds to 0 degrees on both 
+										motors and the second position corresponds to 90 degrees on both motors (this is the upright position).
+										 The first position is simply used for consistency. Before having added this first position, it was 
+										 found that depending on the robot’s position prior to homing and how far away it is from the upright 
+										 position, it would sometimes over or undershoot due to the inertia of the masses coupled to the servo 
+										 motors. </P>
+
+										 <a  class="image fit"></a><img src="Light-tracker images\Robot home.jpg" alt="" class="center" style="width:75%;"></a>
+										<p></p>
+
+										<h4>PID Implementation</h4>
+										<p>After homing the robot, the robot can begin tracking the light. This is done using a PID controller.</p>
+										<a  class="image fit"></a><img src="Light-tracker images\code5.png" alt="" style="width:55%;"></a>
+
+										<p></p>
+										<p>As discussed in the PID Controller Design section, there are two individual PID loops for both x and y.
+											 The error is determined using the method outlined in the PID Controller Design and implemented 
+											 programmatically using the developed function called SenseCoord() while passing the parameter of 
+											 interest (i.e. x or y). <br/>
+												There are three main steps in the function SenseCoord() to determine this error. Firstly, the code 
+												prompts the six light dependent resistors to read analog values for each and stores all the readings 
+												in an array called valLDR[]. The code then determines the LDR that produced the smallest analogRead() 
+												value, as that is the light dependent resistor that is obtaining the most amount of light. 
+												</p>
+
+												<div class="row">
+														<div class="column">
+															<img src="Light-tracker images\code6.png" alt="" class="center" style="width:280px;height:400px;">
+														</div>
+														<div class="column">
+															<img src="Light-tracker images\code7.png" alt="" class="center" style="width:180px;height:400px;">
+														</div>
+														</div>
+												<p></p>
+												<P>Lastly, the x and y coordinates were obtained. This is done through a series of if statements.
+													 Based on which LDR is the brightest, the unit vector for x ̂ and y ̂ are determined using basic 
+													 trigonometry for 60-degree triangles (since each LDR is 60 degrees apart). At this point, the 
+													 direction of the light source is known, but how far away it is still needs to be determined. 
+													 This is accomplished by calculating a magnitude by simply subtracting the analogRead() values 
+													 for the brightest LDR with the analogRead() value of its opposite LDR. This is represented as 
+													 the variable mag in the code. If the light source is far from the center of the end-effector, 
+													 this magnitude will be large as the opposite LDR will be mostly in the shadow and hence have a 
+													 very different reading. If the light source is close to the center of the end-effector, this 
+													 magnitude will be small as the brightest LDR and its opposite will have a similar reading. The 
+													 position of the light source is finally determined by multiplying the unit vector direction 
+													 components by the magnitude. Since the desired position is just (0, 0) the error is the same 
+													 as the sensed position. In the code, the error of x is represented as the variable x_sen and 
+													 the error of y is represented as the variable y_sen.</P>
+
+													 <a  class="image fit"></a><img src="Light-tracker images\code8.png" alt="" style="width:55%;"></a>
+													<P></P>
+													<p>The PID portion is broken down into the five parts as can be observed in the figure above. 
+														The first part determines which way the end effector needs to rotate in order to obtain a more 
+														accurate orientation. Since the PID controller designed is used to determine how far away the 
+														end-effector is from facing the light source, this value needs to be added or subtracted to the 
+														current angle the servo motor is positioned at. Thus, depending on the sign of the error values, 
+														the PID offset angle is either added or subtract from the current motor angle. Next, the actual 
+														PID control is applied and used to calculate the angle offset the end-effector is for the motor of 
+														interest (i.e. x or y) based on the error obtained. The third part is to obtain the actual angle 
+														that the motor needs to be at to ensure the light tracker is at its optimal position. The fourth 
+														part involves incorporating the limitations of the motor. As the motor can only rotate from 0 to 
+														180 degrees, if the control output is to write a motor angle out of this range, the control output 
+														is simply saturated. Finally, the angle calculated for the motors through this entire procedure is 
+														written to the servo motor using the servo.Write() function.</p>
+
+														<h4>Electronic Hardware Implementation</h4>
+														<p>To physically realize this solar tracker project, the system must be implemented through 
+															electronic hardware using sensor integration and signal conditioning. 
+															The electrical schematic of this system can be seen below.</p>
+															<a  class="image fit"></a><img src="Light-tracker images\electrical schematic.png" alt="" style="width:55%;"></a>
+														<P></P>
+														<p>From the above schematic, it can be seen that six LDRs in a voltage divider configuration 
+															and 2 servo motor actuators were used. Similar to previous labs, the voltage divider is 
+															required to perform the necessary signal conditioning to convert a change in resistance 
+															from the LDRs to a voltage signal that can be measured by the Arduino. This is then measured 
+															using the analogRead() Arduino function which returns a value ranging from 0-1023 due to its 
+															10-bit ADC. The servo motors allow the robot to span 3D space and move to the appropriate 
+															position as calculated by the PID controller.</p>
+
+														<h4>Mechanical Implementation and CAD Justification</h4>
+
+														<p>The purpose of the light solar tracker is to allow the user to obtain the most amount of light possible
+															, by orientating the tracker to the most optimal position. To physically ensure the light tracker is 
+															completing this task, the group decided that the solar tracker would have 2 degrees of freedom 
+															(i.e. 2 motors) in order to span 3D space. The motors can be observed in the CAD below. <br /> 
+															<br />
+															The structural integrity of the solar tracker was a main concern for the group, so the group decided to 
+															spend a significant time in designing a light tracker that could fully support itself under a reasonable 
+															amount of stress and vibrations. A major concern was how well the structure would hold with two servo
+															motors being implemented in it. Vibrations are a major reason structures fail or collapse, so the group 
+															decided that the motor would need to be securely added to the light tracker. As can be observed in the
+															figure below, the servo motors are a tight fit with the structure itself, limiting the movement
+															of the motor, as it is running. One motor is placed vertically and the other horizontally, 
+															allowing for two degrees of freedom. The bottom motor allows the light tracker to rotate in
+															the horizontal (xy) plane and the motor above it allows the tracker to rotate in the vertical plane. <br />
+															<br />
+															Finally, the last part of the CAD is the end effector of the solar tracker, where the six light dependent 
+															resistors are located. They are equally spaced out, to maximize its range and optimize the amount of light 
+															that the tracker will obtain when running. In conclusion, the functionality of the light tracker is 
+															directly proportional to how the tracker itself is designed, which is why the group selected it to 
+															be of the highest priority. 
+																</p>
+																<a  class="image fit"></a><img src="Light-tracker images\3D model.png" alt="" class="center" style="width:85%;"></a>
+
+																<h4>Results</h4>
+																<p>Table below shows the sample data collect by the six LDR sensors for 15 samples. The coordinates 
+																	represent the calculated position the light source is located with respect to the body attached 
+																	coordinate frame on the end-effector.</p>
+																	<a  class="image fit"></a><img src="Light-tracker images\Table Data.PNG" alt="" class="center" style="width:65%;"></a>
+																	<p></p>
+																	<p>The output of the sensor varies with respect to the intensity of the light. With the configuration of the
+																		 voltage divider used to measure the LDR readings, when the intensity of light increases, the value 
+																		 returned by the Arduino code analogRead() function is lower as seen in the table above. <br />
+																		 <br />
+																		 Since the LDRs are separated by opaque light barriers, any sensors that are on the other side of the barrier 
+																		 are cast into a shadow and would generate higher analogRead() value. For example, the 
+																		 data collected are a representation of a light source located on the LDR 4 and 5 side, which resulted 
+																		 in a low output for those LDR sensors and a high output by LDR 1 and 2.
+																			</p>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+						
+					<section class="split contact">
+
+
+						<section>
+							<h3>Email</h3>
+							<p>Mohammed_alkhafaji@hotmail.com</a></p><br />
+						</section>
+						<section>
+						<h3>Credits</h3>
+						<p>Refer to HTML5 UP for more templates</a></p>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/mohammed-al-khafaji-990298181/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+						<li><a href="https://github.com/Malkhafaji95/Projects/projects" class="icon fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</section>
+				</footer>
+
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
