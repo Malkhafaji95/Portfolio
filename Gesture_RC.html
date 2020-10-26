@@ -46,11 +46,11 @@
 							  <P></P>	
 							  <h3> Application</h3>
 
-								<p>As tasks in every sector around the globe get automated, a key component of the automated machinary / logic evolves communicating wirelessly between devices.
-									The NRF24L01 transceiver module can be used in various projects such as this gesture controlled RC car, controlling relays and PLC's, uploading data onto virtual clouds, or communicating with phone applications. 
+								<p>A key component of automated machinery and logic involves communicating wirelessly between devices.
+									The NRF24L01 transceiver module can be used in various projects such as this gesture-controlled RC car, controlling relays and PLCs, uploading data onto virtual clouds, or communicating with mobile phone applications. 
 								</p> 
 
-								<p>The gyroscope on the other hand might seem to have limited uses, but is infact found in popular gadgets such as drones for self balancing, phones to determine if the phone
+								<p>The gyroscope on the other hand might seem to have limited uses, but is in fact found in popular gadgets such as drones for self-balancing, in phones for determining if the phone
 									is in landscape or portrait orientation, and virtual reality (VR) headsets to predict viewing angles.
 								</p>
 
@@ -61,20 +61,20 @@
 								<h4>NRF24L01 Transceiver Module</h4>
 
 									<p>
-										The NRF24L01 transceiver uses 2.4 GHz ISM frequency band to communicate. The Industrial, Scientific, and Medical (ISM) bands are used for unlicensed low-powered devices such as phones, WiFi transceivers, and bluetooth devices. 
-										This makes the NRF24L01 a suitable transceiver for any small to medium scale project. Note that a single NRF24L01 transceiver module can have up to 125 channel.
+										The NRF24L01 transceiver uses 2.4 GHz ISM frequency band to communicate. The Industrial, Scientific, and Medical (ISM) bands are used for unlicensed, low-powered devices such as mobile phones,
+										Wi-Fi transceivers, and Bluetooth devices. This makes the NRF24L01 a suitable transceiver for any small to medium scale project. Note that a single NRF24L01 transceiver module can have up to 125 channels.
 									</p>
 
 									<p>
-										The NRF24L01 transceiver module uses a packet structure known as Enhanced shockburst. The structure is broken into five sections and can be seen in the picture below.
+										The NRF24L01 transceiver module uses a packet structure known as Enhanced ShockBurst. The structure is broken into five sections and can be seen in the picture below.
 									</p>
 
 									<a href="https://lastminuteengineers.com/nrf24l01-arduino-wireless-communication/" class="image fit"><img src="RC CAR\Gesture_controlled\enhanced shockburst.PNG" alt="Source: Glentoy" class="center" style="width:550px;height:200px;"></a>
 									
 
 									<p></p>
-									<p>Preamble: A bit sequence used to synchronize the receivers demodulator to the incoming bit stream. It has the value of either 1 or 0. Essentially, Shockburst packets are transferred by the carrier wave. if the preamble has a bit value of 1, then the transceiver
-										will extract the packet from the carrier wave. if the preamble byte value is 0, then it will not be ignored.
+									<p>Preamble: A bit sequence used to synchronize the receiver’s demodulator to the incoming bit stream. It has the value of either 1 or 0. Essentially, ShockBurst packets are transferred by the carrier wave. if the preamble has a bit value of 1, 
+										then the transceiver will extract the packet from the carrier wave. if the preamble bit value is 0, then it will not be ignored.
 									</p>
 
 									<p>
@@ -82,8 +82,8 @@
 									</p>
 
 									<p>
-										Packet Control: The packet control has three functionalities. First being the Payload Length which determines the length of the payload (data transmitted). This field is only used if the payload length is dynamic. Second is Packet ID which assigns the packet a unique ID to determine if the packet is
-										new or if it is a copy of a previous transmission. If the packet has been transmitted before, then it will be ignored. Lastly is the No Acknowledgement. If No Act is set to 0, then the receiver must transmit a packet back to the transmitter informing it that the original packet has been received.
+										Packet Control: The packet control has three functionalities. First being the Payload Length which determines the length of the payload (data transmitted). This field is only used if the payload length is dynamic. Second is Packet ID which assigns the packet a unique ID to determine if the packet is new or if it is a copy of a previous transmission.
+										If the packet has been transmitted before, then it will be ignored. Lastly is the No Acknowledgement. If No Act is set to 0, then the receiver must transmit a packet back to the transmitter informing it that the original packet has been received.
 									</p>
 
 									<p>
@@ -97,18 +97,19 @@
 									<h4>MPU6500 Accelerometer / Gyroscope</h4>
 
 									<p>
-										The MPU6500 module consists of 3-axis gyroscope as well as a accelerometer along the 3-axes. The gyroscope is able to detect angular rotation using micro electro-mechanical system (MEMS) technology. When the gyros are rotated about any axis, a vibration is detected by the MEM within the MPU6500 chip.
-										The MEM consist of a series of capacitors with a small gap in between them. As the MEM starts vibrating due to rotation / movement, the gap is increased and a change in capacitance is measured, which is then processed and transmitted into the microcontroller.
+										The MPU6500 module consists of 3-axis gyroscope as well as an accelerometer along the 3-axes. The gyroscope is able to detect angular rotation using micro electro-mechanical system (MEMS) technology. When the gyros are rotated about any axis, a vibration is detected by the MEM within the MPU6500 chip.
+										The MEM consists of a series of capacitors with small gaps in between them. As the MEM starts vibrating due to rotation/movement, the gap is increased and a change in capacitance is measured, which is then processed and transmitted to the microcontroller.
 									</p>
 
 									<p>
-										The MPU6500 module utilizes a bus to communicate with the microcontroller. The bus is called I2C which stands for integrated circuit(IC), and the 2 indicates that more than one chip is connected to the bus. The I2C uses two wired connections, serial data (SDA) and serial clock (SCL), to communicate between the master (Arduino) and slaves (MPU6500 and MPU9250 chips) as seen in the image below.
+										The MPU6500 module utilizes a bus to communicate with the microcontroller. The bus is called I2C which stands for integrated circuit (IC), and the 2 indicates that more than one chip is connected to the bus. The I2C uses two wired connections, serial data (SDA), 
+										and serial clock (SCL), to communicate between the master (Arduino) and slaves (MPU6500 and MPU9250 chips) as seen in the image below.
 									</p>
 
 									<a href="https://www.theengineeringprojects.com/2019/02/introduction-to-mpu6050.html" class="image fit"><img src="RC CAR\Gesture_controlled\I2C Bus.jpg" alt="Source: Glentoy" class="center" style="width:350px;height:200px;"></a>
 
 									<p>
-										To establish communication between the master and slave(s), the 'slave address' and the 'register address' within the slave need to be identified. Image below contains an example of how data is read from the slave.
+										To establish communication between the master and slave(s), the 'slave address' and the 'register address' within the slave need to be identified. The image below contains an example of how data is read from the slave.
 									</p>
 
 									<a  class="image fit"></a><img src="RC CAR\Gesture_controlled\I2C Bus reading example.PNG" alt="" class="center" style="width:60%;"></a>
@@ -122,17 +123,17 @@
 									<h4>Kuman KY58 L293D Motor Drive Shield</h4>
 
 									<p>
-										The Kuman KY58 is a motor shield drive capable of controlling 4 bidirectional DC motors independently. It has 2 L293D chips. An L293D consist of two H-bridge. The diagram below demonstrate how H-bridge circuits work.
+										The Kuman KY58 is a motor shield drive capable of independently controlling 4 bidirectional DC motors independently. It has 2 L293D chips. An L293D consists of two H-bridge. The diagram below demonstrate how H-bridge circuits work.
 									</p>
 
 									<a  class="image fit"></a><img src="RC CAR\Bidirectional DC Motor control.PNG" alt="" class="center" style="width:100%;"></a>
 
 									<p>
-										In an H-bridge circuit, there is a common ground, two independent power sources for the circuit and motor, an enable for the op-amps, and inputs A1 and A2. The microcontroller, Arduino, controls the rotation direction by sending a Pulse Width Modulation (PWM) signal to either A1 or A2.
+										In an H-bridge circuit, there is a common ground, two independent power sources for the circuit and motor, an enabled for the op-amps, and inputs A1 and A2. The microcontroller, Arduino, controls the rotation direction by sending a Pulse Width Modulation (PWM) signal to either A1 or A2.
 									</p>
 
 									<p>
-									PWM is a technique for getting analog results with digital inputs. When a digital input turns on then off again, a square wave is created. The on-off pattern can simulate voltages ranging from full on(5V) to off(0V). The duration of "on time" is called the pulse width. To get varying analog values, the pulse width is increased / decreased as seen below.
+									PWM is a technique for getting analog outputs with digital inputs. When a digital input turns on then off again, a square wave is created. The on-off pattern can simulate voltages ranging from full on(5V) to off(0V). The duration of "on time" is called the pulse width. To get varying analog values, the pulse width is increased/decreased as seen below.
 									</p>
 
 									<a href="https://www.arduino.cc/en/tutorial/PWM" class="image fit"><img src="RC CAR\Gesture_controlled\PWM.PNG" alt="Source: Glentoy" class="center" style="width:400px;height:400px;"></a>
@@ -142,7 +143,7 @@
 									<h4>Transmitter Gadget</h4>
 
 									<p>
-										The transmitter gadget circuit consist of an Arduino Nano, an MPU6500 module, and an NRF24L01 transceiver module. A 9V battery provides power to the circuit. The wiring schematic can be seen below.
+										The transmitter gadget circuit consists of an Arduino Nano, an MPU6500 module, and an NRF24L01 transceiver module. A 9V battery provides power to the circuit. The wiring schematic can be seen below.
 									</p>
 
 									<a  class="image fit"></a><img src="RC CAR\Gesture_controlled\Transmitter schematic.PNG" alt="" class="center" style="width:80%;"></a>
@@ -150,7 +151,7 @@
 									<p></p>
 
 									<p>
-										In the code's setup function, the I2C bus is first enabled by calling the function 'Wire.begin()', followed by initializing the MPU6500 chip ( variable name 'accelgyro' ). Next, the radio communication begins with the channel address set to 00001. The command 'radio.setPALevel(RF24_PA_MIN)' sets the transmission range to medium to reduce power consumption. The data transfer rate is set to 250Kb/s. Lastly, the NRF24L01 is commanded to stop listening since it is the transceiver transmitting the data.
+										In the code's setup function, the I2C bus is first enabled by calling the function 'Wire.begin()', followed by initializing the MPU6500 chip (variable name 'accelgyro'). Next, the radio communication begins with the channel address set to 00001. The command 'radio.setPALevel(RF24_PA_MIN)' sets the transmission range to medium to reduce power consumption. The data transfer rate is set to 250Kb/s. Lastly, the NRF24L01 is commanded to stop listening since it is the transceiver transmitting the data.
 									</p>
 
 
@@ -184,7 +185,7 @@
 									<p></p>
 									  	
 									<p>
-										In the loop function, the accelerometer and gyroscope values are obtained. The gyroscope values are divided by a constant that is oppropriate to the gyroscope sensitivity setting.
+										In the loop function, the accelerometer and gyroscope values are obtained. The gyroscope values are divided by a constant that is appropriate to the gyroscope sensitivity setting.
 									</p>
 
 									<div id="example">
@@ -223,8 +224,8 @@
 									  </style>
 										<p></p>
 										<p>
-											When the gyroscope values were examined, it was observed that the output values were increasing over time even through the MPU6500 module was stationary. There were two options to solve this issue, either apply a time based filter to correct the gyroscope output, or process the accelerometer values through trigonometry relationships. The Latter method was used. The equations used in
-											the code can be seen in the figure below. 
+											When the gyroscope values were examined, it was observed that the output values were increasing over time even through the MPU6500 module was stationary. There were two options to solve this issue, either apply a time-based filter to correct the gyroscope output
+											or process the accelerometer values through trigonometry relationships. The Latter method was used. The equations used in the code can be seen in the figure below. 
 										</p>
 
 										<div class="row">
@@ -238,7 +239,7 @@
 
 										  <p></p>
 										  <p>
-											  The last part in the loop function is repackaging the data in a structured form and transmitting it to the RC car Arduino.
+											 The last part in the loop function is repackaging the data in a structured form and transmitting it to the RC car Arduino.
 										  </p>
 
 										  <h4>RC Car</h4>
@@ -255,7 +256,7 @@
 										</p>
 
 										<p>
-											The radio transceiver is then turned on and tuned to the same address as the transmitter. Unlike the transmitter however, the receiver requires the selection of a pipe channel because receivers can communicate with upto 125 different transmitters. The range and transfer rate are set similar to the transmitter. Lastly, the NRF24L01 is commanded to start listening since it is the receiver.
+											The radio transceiver is then turned on and tuned to the same address as the transmitter. Unlike the transmitter however, the receiver requires the selection of a pipe channel because receivers can communicate with up to 125 different transmitters. The range and transfer rate are set similar to the transmitter. Lastly, the NRF24L01 is commanded to start listening since it is the receiver.
 										</p>
 										
 										<div id="example">
