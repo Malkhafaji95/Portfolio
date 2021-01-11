@@ -1,0 +1,343 @@
+<MainPage>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols : 1
+            padding: 15,15
+            spacing: 20,20
+            Label:
+                text:"Posture UP!"
+                font_size: '25sp'
+
+            Label:
+                text:"Select Session Length"
+                font_size: '15sp'
+
+            RelativeLayout:
+                Button:
+                    text:"10 Minute Session"
+                    size_hint: 0.3 , 0.7
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                    on_press: root.start10()
+            RelativeLayout:
+                Button:
+                    text:"15 Minute Session"
+                    size_hint: 0.3 , 0.7
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                    on_press: root.start15()
+            RelativeLayout:
+                Button:
+                    text:"20 Minute Session"
+                    size_hint: 0.3 , 0.7
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                    on_press: root.start20()
+
+            Label:
+                id: invalid_entry
+                text: ""
+
+<PostSeshPage10>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 20, 20
+            spacing: 10, 10
+
+            RelativeLayout:
+                Button:
+                    on_press: root.exit()
+                    text:"Back to Main Page"
+                    size_hint : 0.25,0.25
+                    pos_hint: {'center_x': 0.15, 'center_y': 0.8}
+            Label:
+                id: post_obs_text10
+                text: ""
+            Label:
+                id: post_ave_text10
+                text: ""
+            Label:
+                id: post_lowest_value_text10
+                text: ""
+            Graph:
+                id: post_graph10
+                x_ticks_major: 200
+                y_ticks_major: 15
+                xlabel:'Time (s)'
+                ylabel:'Posture Angle'
+                x_ticks_minor: 4
+                y_ticks_minor: 3
+                y_grid_label:True
+                x_grid_label:True
+                padding:5
+                x_grid:True
+                y_grid:True
+                xmin:-0
+                xmax: 600
+                ymin: 60
+                ymax: 90
+                border_color:[0.2, 0.3, 3, 1]
+                tick_color: [0.2, 0.6, 3, 1]
+
+<PostSeshPage15>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 20, 20
+            spacing: 10, 10
+
+            RelativeLayout:
+                Button:
+                    on_press: root.exit()
+                    text:"Back to Main Page"
+                    size_hint : 0.25,0.25
+                    pos_hint: {'center_x': 0.15, 'center_y': 0.8}
+            Label:
+                id: post_obs_text15
+                text: ""
+            Label:
+                id: post_ave_text15
+                text: ""
+            Label:
+                id: post_lowest_value_text15
+                text: ""
+            Graph:
+                id: post_graph15
+                x_ticks_major: 200
+                y_ticks_major: 15
+                xlabel:'Time (s)'
+                ylabel:'Posture Angle'
+                x_ticks_minor: 4
+                y_ticks_minor: 3
+                y_grid_label:True
+                x_grid_label:True
+                padding:5
+                x_grid:True
+                y_grid:True
+                xmin:-0
+                xmax: 900
+                ymin: 60
+                ymax: 90
+                border_color:[0.2, 0.3, 3, 1]
+                tick_color: [0.2, 0.6, 3, 1]
+
+<PostSeshPage20>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 20, 20
+            spacing: 10, 10
+
+            RelativeLayout:
+                Button:
+                    on_press: root.exit()
+                    text:"Back to Main Page"
+                    size_hint : 0.25,0.25
+                    pos_hint: {'center_x': 0.15, 'center_y': 0.8}
+            Label:
+                id: post_obs_text20
+                text: ""
+            Label:
+                id: post_ave_text20
+                text: ""
+            Label:
+                id: post_lowest_value_text20
+                text: ""
+            Graph:
+                id: post_graph20
+                x_ticks_major: 200
+                y_ticks_major: 15
+                xlabel:'Time (s)'
+                ylabel:'Posture Angle'
+                x_ticks_minor: 4
+                y_ticks_minor: 3
+                y_grid_label:True
+                x_grid_label:True
+                padding:5
+                x_grid:True
+                y_grid:True
+                xmin:-0
+                xmax: 1200
+                ymin: 60
+                ymax: 90
+                border_color:[0.2, 0.3, 3, 1]
+                tick_color: [0.2, 0.6, 3, 1]
+
+
+<ScanningPage10>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 20, 20
+            spacing: 10, 10
+
+            RelativeLayout:
+                Button:
+                    on_press: root.exit()
+                    text:"Back to Main Page"
+                    size_hint : 0.25,0.25
+                    pos_hint: {'center_x': 0.15, 'center_y': 0.8}
+            Label:
+                id: obs_text10
+                text: ""
+            Label:
+                id: ave_text10
+                text: ""
+            Graph:
+                id: graph10
+                x_ticks_major: 200
+                y_ticks_major: 15
+                xlabel:'Time (s)'
+                ylabel:'Posture Angle'
+                x_ticks_minor: 4
+                y_ticks_minor: 3
+                y_grid_label:True
+                x_grid_label:True
+                padding:5
+                x_grid:True
+                y_grid:True
+                xmin:-0
+                xmax: 600
+                ymin: 45
+                ymax: 90
+                border_color:[0.2, 0.3, 3, 1]
+                tick_color: [0.2, 0.6, 3, 1]
+        
+        GridLayout:
+            cols: 1
+            size_hint: 0.6,0.1
+            padding: 10,10
+            spacing: 10,10
+
+            RelativeLayout:
+                Button:
+                    text: "Start Session"
+                    on_press: root.graphh()
+                    size_hint: 0.3 , 0.7
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+
+<ScanningPage15>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 20, 20
+            spacing: 10, 10
+
+            RelativeLayout:
+                Button:
+                    on_press: root.exit()
+                    text:"Back to Main Page"
+                    size_hint : 0.25,0.25
+                    pos_hint: {'center_x': 0.15, 'center_y': 0.8}
+            Label:
+                id: obs_text15
+                text: ""
+            Label:
+                id: ave_text15
+                text: ""
+            Graph:
+                id: graph15
+                x_ticks_major: 200
+                y_ticks_major: 15
+                xlabel:'Time (s)'
+                ylabel:'Posture Angle'
+                x_ticks_minor: 4
+                y_ticks_minor: 3
+                y_grid_label:True
+                x_grid_label:True
+                padding:5
+                x_grid:True
+                y_grid:True
+                xmin:-0
+                xmax: 900
+                ymin: 45
+                ymax: 90
+                border_color:[0.2, 0.3, 3, 1]
+                tick_color: [0.2, 0.6, 3, 1]
+        
+        GridLayout:
+            cols: 1
+            size_hint: 0.6,0.1
+            padding: 10,10
+            spacing: 10,10
+
+            RelativeLayout:
+                Button:
+                    text: "Start Session"
+                    on_press: root.graphh()
+                    size_hint: 0.3 , 0.7
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+
+<ScanningPage20>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 20, 20
+            spacing: 10, 10
+
+            RelativeLayout:
+                Button:
+                    on_press: root.exit()
+                    text:"Back to Main Page"
+                    size_hint : 0.25,0.25
+                    pos_hint: {'center_x': 0.15, 'center_y': 0.8}
+            Label:
+                id: obs_text20
+                text: ""
+            Label:
+                id: ave_text20
+                text: ""
+            Graph:
+                id: graph20
+                x_ticks_major: 200
+                y_ticks_major: 15
+                xlabel:'Time (s)'
+                ylabel:'Posture Angle'
+                x_ticks_minor: 4
+                y_ticks_minor: 3
+                y_grid_label:True
+                x_grid_label:True
+                padding:5
+                x_grid:True
+                y_grid:True
+                xmin:-0
+                xmax: 1200
+                ymin: 45
+                ymax: 90
+                border_color:[0.2, 0.3, 3, 1]
+                tick_color: [0.2, 0.6, 3, 1]
+        
+        GridLayout:
+            cols: 1
+            size_hint: 0.6,0.1
+            padding: 10,10
+            spacing: 10,10
+
+            RelativeLayout:
+                Button:
+                    text: "Start Session"
+                    on_press: root.graphh()
+                    size_hint: 0.3 , 0.7
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+
+
+<RootWidget>:
+    MainPage:
+        name:"main_page"
+    ScanningPage10:
+        name:"scanning_page10"
+    ScanningPage15:
+        name:"scanning_page15"
+    ScanningPage20:
+        name:"scanning_page20"
+    PostSeshPage10:
+        name:"post_sesh_page10"
+    PostSeshPage15:
+        name:"post_sesh_page15"
+    PostSeshPage20:
+        name:"post_sesh_page20"

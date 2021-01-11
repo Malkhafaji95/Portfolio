@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Gesture Controlled RC CAR</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Main</a>
+					</header>
+
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+
+									<h3>Posture correction Device<br />
+									 </h3>
+									<p> A wearable posture correction device that tracks real time posture inclination angle. Data collected will be stored and displaced in a phone application.
+									</p>
+									
+								</header>
+
+
+							  <video width="500" height="230" controls class="center">
+								<source src="Posture Correction Device\Posture.mp4" type="video/mp4">
+								<source src="Posture Correction Device\Posture.mp4" type="video/ogg">
+							  Your browser does not support the video tag.
+							  </video>
+							  <P></P>
+
+								<p>After spending months in quarantine and a decrease in outdoor activities due to COVID-19, I started developing back pain due to a surge in hours spent infront of the computer. 
+								This led to me deciding to utilize my coding skills in both C++ and Python to develop a phone application that monitors my posture, and improve my sitting habits. 
+								</p> 
+
+								<p>The hardware used in the project are: a gyroscope to measure the inclination angle of the user’s posture; an ESP32 microcontroller that processes the 
+									data and transmits it to the phone application through WIFI; and an Android phone that is capable of connecting to the WIFI and running the custom phone application.
+								</p>
+
+									<p></p>
+									
+								<h3>Implementation Details</h3>
+									
+									<h4>MPU6500 Accelerometer / Gyroscope</h4>
+
+									<p>
+										The MPU6500 module consists of 3-axis gyroscope as well as an accelerometer along the 3-axes. The gyroscope is able to detect angular rotation using micro electro-mechanical system (MEMS) technology. When the gyros are rotated about any axis, a vibration is detected by the MEM within the MPU6500 chip.
+										The MEM consists of a series of capacitors with small gaps in between them. As the MEM starts vibrating due to rotation/movement, the gap is increased and a change in capacitance is measured, which is then processed and transmitted to the microcontroller.
+									</p>
+
+									<p>
+										The MPU6500 module utilizes a bus to communicate with the microcontroller. The bus is called I2C which stands for integrated circuit (IC), and the 2 indicates that more than one chip is connected to the bus. The I2C uses two wired connections, serial data (SDA), 
+										and serial clock (SCL), to communicate between the master (Arduino) and slaves (MPU6500 and MPU9250 chips) as seen in the image below.
+									</p>
+
+									<a href="https://www.theengineeringprojects.com/2019/02/introduction-to-mpu6050.html" class="image fit"><img src="RC CAR\Gesture_controlled\I2C Bus.jpg" alt="Source: Glentoy" class="center" style="width:350px;height:200px;"></a>
+
+									<p>
+										To establish communication between the master and slave(s), the 'slave address' and the 'register address' within the slave need to be identified. The image below contains an example of how data is read from the slave.
+									</p>
+
+									<a  class="image fit"></a><img src="RC CAR\Gesture_controlled\I2C Bus reading example.PNG" alt="" class="center" style="width:60%;"></a>
+
+									<p></p>
+									
+									<p>
+										The command on line 2 calls for the slave address, followed by line 3 where the register address is identified. line 4 indicates the sensitivity and reading radius required (0 to 180 degrees) . Lasty, line 5 ends the communication between the master and slave. Note that the MPU6500 module datasheet lists the slave addresses, register addresses, and settings.
+									</p>
+
+									<p>The code discussed above will not be included in the Arduino code. Rather, it will be called for through the 'Wire.h' Library.</p>
+
+									<h3>Wiring and Coding </h3>
+
+									<h4>Back Brace</h4>
+
+									<p>
+										The back brace circuit consists of an ESP32 microcontroller and a MPU6500 module. A 5V power bank is used to power the circuit via the microcontroller through a micro-USB connection. The wiring schematic can be seen below.
+									</p>
+
+									<a  class="image fit"></a><img src="Posture Correction Device\Schematic.PNG" alt="" class="center" style="width:60%;"></a>
+
+									<P>
+										The ESP32 and gyroscope at attached to a posture brace. A picture of the brace used in this project can be seen below.
+									</P>
+
+									<a  class="image fit"></a><img src="Posture Correction Device\Posture Brace.jpg" alt="" class="center" style="width:30%;"></a>
+
+									<p></p>
+
+									<p>
+										In the code's setup function, the I2C bus is first enabled by calling the function 'Wire.begin()', followed by initializing the MPU6500 chip (variable name 'accelgyro'). Then the ESP microcontroller is connected to the internet with the ‘Wifi.begin(ssid,password)’ 
+										command where the WiFi username (ssid) and password are hard-coded. Finally, the microcontroller is connected the server host, the phone application, with the ‘client.connect(host, port)’ command, where host is the phone’s IP address, and port is a four digit domain number.
+										 Note that the ssid, password, host, and port variables were initialized at the beginning of the program and are not shared due to privacy concerns. 
+									</p>
+
+
+									<div id="example">
+										
+										void setup() { <br />
+											 <br />
+											 Wire.begin(); <br />
+											 accelgyro.initialize(); <br />
+											 <br />
+										   // Connecting to the Wifi.<br />
+											 WiFi.begin(ssid, password);<br />
+											 client.connect(host, port)<br />
+										   }<br />
+									  </div>
+									  <style>
+										  
+										#example {
+										  width: 600px;
+										  height: 200px;
+										  border: 1px solid #E8C48F;
+										  padding: 10px;
+										  overflow: auto;
+										}
+									  </style>
+
+									<p></p>
+									  	
+									<p>
+										In the loop function, the accelerometer and gyroscope values are obtained. The gyroscope values are divided by a constant that is appropriate to the gyroscope sensitivity setting.
+									</p>
+
+										<p>
+											When the gyroscope values were examined, it was observed that the output values were increasing over time even through the MPU6500 module was stationary. There were two options to solve this issue, either apply a time-based filter to correct the gyroscope output
+											or process the accelerometer values through trigonometry relationships. The Latter method was used. The equations used in the code can be seen in the figure below. 
+										</p>
+
+										<div class="row">
+											<div class="column">
+											  <img src="RC CAR\Gesture_controlled\inclination angle FBD.PNG" alt="Snow" style="width:360px;height:320px;">
+											</div>
+											<div class="column">
+											  <img src="RC CAR\Gesture_controlled\inclination angle equations.PNG" alt="Forest" style="width:240px;height:300px;">
+											</div>
+										  </div>
+
+										  <div id="example">
+										
+											void loop() {<br />
+	
+												// Creates a client that connect to the server<br />
+												WiFiClient client<br />
+												<br />
+												// Collect readings<br />
+												accelgyro.getMotion6(&gz);<br />
+												<br />
+												// Apply gyro scale from datasheet<br />
+												gsz = gz/gyroScale;<br />
+												<br />
+												// Calculate accelerometer angles<br />
+												arz = (180/3.141592) * atan(sqrt(square(ay) + square(ax)) / az);<br />
+												<br />
+												// Send data to the server host (phone)<br />
+												client.print(arz);<br />
+												<br />
+												delay(1000);<br />		
+											  }<br />
+										  </div>
+										  <style>
+											  
+											#example {
+											  width: 600px;
+											  height: 200px;
+											  border: 1px solid #E8C48F;
+											  padding: 10px;
+											  overflow: auto;
+											}
+										  </style>
+
+										  <p></p>
+										  <p>
+											 The last part in the loop function is sending the data to the phone. This is done with the 'client.print(arz)' command, where arz is the inclination angle veriable.
+										  </p>
+
+										  <h3>Phone Application Structure</h3>
+
+										  <p>
+											The script for the application is written in two main files, a python file (.py ) and a kivy file (.kv). The kivy file is where the application's interface and interactions
+											 are designed, while the python file is dedicated for the application's commands and functions.
+										 </p>
+
+										 <p>
+											The python file is composed of a series of classes, where each class represents a page of the application. Within these classes are functions,
+											 which are initiated by either time or the user interacting with the application.
+										 </p>
+
+										 <p>
+											The kivy file is not structured like a python code. An example of how a button is programmed in kivy language can be seen in the picture below. Where 'On_press' calls for the 'root.exit()' 
+											from the python file when the button is pressed, 'text' is where the text on the button is coded, 'size_hint' dictates the size of the button, and 'pos_hint' declares where the button is 
+											locates on the page. As for the 'Label' below it. It is used to print out information. The label in the picture is used to print out dynamic information, which is why
+											'text' is left blank. The id is the variable named used in the python file to send information to this label.
+										 </p>
+
+										 <a  class="image fit"></a><img src="Posture Correction Device\Kivy Lang.PNG" alt="" class="center" style="width:80%;"></a>
+
+										 <P></P>
+
+										 <p>
+											Due to the complexity and length of the phone application code, it will not be discussed thoroughly. Rather, important python libraries and functions will be highlighted; and the code’s
+											data flow will also be discussed. The Phone application code files are provided below for download.
+										 </p>
+
+										 <a href="Posture Correction Device\Downloads\main.py" download> DOWNLOAD PYTHON FILE</a> <br/>
+										 <a href="Posture Correction Device\Downloads\design.kv" download> DOWNLOAD KIVY FILE</a> <br/>
+
+										 <p></p>
+
+										  <h4>Libaries</h4>
+										  <p> </P>
+
+										  <h6> Socket </h6>
+
+										  <p>
+											A standard python module that is used as an inter-process communication (IPC) method to share data between the phone application and the ESP32 microprocessor.
+											 Socket also enables the phone application to act as a server host for this project.
+										 </p>
+
+										 <h6> Operation System (OS) </h6>
+
+										 <p>
+											A standard python module capable of utilizing operation system functions. The module is called for in the program to incorporate the pathing functionality, absolute pathing specifically.
+											 Absolute pathing is critical to this project because it eliminates any 'file not found' issues that are likely to occur because the original script is created on a windows 10 operation system.
+											  Then is moved to a Linux operation system to generate an APK file, which is an executable setup file used to install the application on the android phone.
+										 </p>
+
+										<p> 
+											Therefore, the usage of the absolute pathing is crucial because it maintains a fixed file pathing, regardless of the operation system. 
+										</p>
+
+										<h6> Kivy </h6>
+
+										<p> 
+											The Kivy module is the backbone of the phone application. It is an open-source software that allows applications to be developed with python code. The advantage that kivy as over other modules 
+											is it cross-platform compatibility, meaning that the application works on various operation systems such as Windows, Mac, IOS, Android, and Linux. Kivy is also compatible with many python modules. 
+										</p>
+
+										<p>
+											Kivy has dozens of sub modules available. The ones used in this project are:
+										</p>
+
+										<ul>
+											<li>kivy.App: The backbone of the application; the main loop of the script.</li>
+											<li>kivy.Lang: This module allows for the python language to interpret the kivy language.</li>
+											<li>kivy.uix.Screenmanager: This module is for managing multiple application pages/screens. It is also responsibly for the transition in-between the pages.</li>
+											<li>kivy.uix.boxlayout: Box layout arranges the application's 'children'. The 'children' are programable interfaces such as buttons, text displays, etc.</li>
+											<li>Kivy.uix.behavior: This module imports 'children'. It was used to import buttons in the application.</li>
+											<li>Kivy_garden.graph: This module enables the use of graphs into the application.</li>
+											<li>Kivy.clock: The kivy clock is required to execute timed functions as standard python time functionalities are not compatible with kivy.</li>
+										  </ul>
+
+										  <h3>Data Flow</h3>
+
+										  <p>
+											The data flow of the program is simple. Raw data are being generated by the MPY6500. Then the data are processed in the ESP32 microcontroller into inclination angles using the equations listed above. 
+											The processed inclination angles are then transmitted to the phone application via internet WiFi connection. The data are then stored first, then get processed further to get plotted and the graph and 
+											display average posture inclination angle.
+										  </p>
+
+										  <a  class="image fit"></a><img src="Posture Correction Device\Data_flow.PNG" alt="" class="center" style="width:80%;"></a>
+										
+										  <p></p>
+
+										  <h3>Results</h3>
+
+										  <p>
+											By observing the graph below, two trends can be highlighted from the 100 sessions completed. First, the average inclination angle has improved and are approaching the ideal 90 degrees value.
+											 Second, the results became more consistant when compared to the initial results. 
+										  </p>
+
+										  <a  class="image fit"></a><img src="Posture Correction Device\Data.PNG" alt="" class="center" style="width:80%;"></a>
+
+
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+						
+					<section class="split contact">
+
+
+						<section>
+							<h3>Email</h3>
+							<p>malkhafa@gmail.com</a></p><br />
+						</section>
+						<section>
+						<h3>Credits</h3>
+						<p>Refer to HTML5 UP for more templates</a></p>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/mohammed-al-khafaji-990298181/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+						<li><a href="https://github.com/Malkhafaji95/Projects/projects" class="icon fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</section>
+				</footer>
+
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
