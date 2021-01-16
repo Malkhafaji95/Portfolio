@@ -15,8 +15,8 @@ postxt = os.path.dirname(os.path.abspath(__file__))
 
 #network connection
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# s.bind((('192.168.0.124'), (1239))) #phone
-s.bind((('192.168.0.56'), (1239))) #pc
+# s.bind((('***.***.*.***'), (1239))) #phone
+s.bind((('***.***.*.**'), (1239))) #pc
 s.listen(5)
 
 #link to kv file
